@@ -120,7 +120,7 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 8px;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 /* Individual message styles */
