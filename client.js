@@ -41,7 +41,7 @@ document.getElementById('clear-btn').addEventListener('click', () => {
 
 // === Back to Home ===
 document.getElementById('back-btn').addEventListener('click', () => {
-  window.location.href = 'https://quick-chat-fumk.onrender.com/';
+  window.location.href = 'https://sf-c4c.onrender.com/';
 });
 
 // === Add Message to DOM ===

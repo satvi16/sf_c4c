@@ -96,7 +96,7 @@ button {
 }
 
 button:hover {
-  background-color: #128c7e;
+  background-color: #12508C;
 }
 
 /* Chat layout */
@@ -238,7 +238,7 @@ button:hover {
 }
 
 #send-btn:hover {
-  background-color: #128c7e;
+  background-color: #12508C;
 }
 
 /* Clear button */
@@ -257,7 +257,7 @@ button:hover {
 }
 
 #clear-btn:hover {
-  background-color: #128c7e;
+  background-color: #12508C;
 }
 
 #terminal-login {
