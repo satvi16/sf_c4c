@@ -76,7 +76,7 @@ body {
 /* Form elements */
 input[type="text"] {
   padding: 10px;
-  border: 1px solid #25d366;
+  border: 1px solid #0070d2;
   border-radius: 8px;
   font-size: 16px;
   width: 100%;
@@ -84,7 +84,7 @@ input[type="text"] {
 }
 
 button {
-  background-color: #25d366;
+  background-color: #0070d2;
   color: white;
   border: none;
   margin-top: 10px;
@@ -172,7 +172,7 @@ button:hover {
 }
 
 .status.seen {
-  color: #25d366; /* WhatsApp green-blue for seen */
+  color: #0070d2; /* WhatsApp green-blue for seen */
 }
 
 .message.single-line {
@@ -193,7 +193,7 @@ button:hover {
 }
 
 .message.single-line .status.seen {
-  color: #25d366; /* Blue tick */
+  color: #0070d2; /* Blue tick */
 }
 
 /* Input area fixed to bottom */
@@ -227,7 +227,7 @@ button:hover {
   width: 42px;
   height: 42px;
   font-size: 20px;
-  background-color: #25d366;
+  background-color: #0070d2;
   color: white;
   border-radius: 8px;
   border: none;
@@ -246,7 +246,7 @@ button:hover {
   width: 42px;
   height: 42px;
   font-size: 20px;
-  background-color: #25d366;
+  background-color: #0070d2;
   color: white;
   border-radius: 8px;
   border: none;
@@ -284,7 +284,7 @@ button:hover {
 }
 
 #Back_Btn{
-    background-color: #25d366;
+    background-color: #0070d2;
     color: white;
     border: none;
     margin-top: 10px;
