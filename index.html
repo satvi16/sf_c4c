@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - SAP SuccessFactors</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<script>
+  // Redirect if not coming from homepage
+  if (document.referrer === '' || !document.referrer.includes('/')) {
+    window.location.href = '/';
+  }
+</script>
+
+
+<body>
+
+  <div id="auth-container">
+    <img src="https://hcm44.sapsf.com/ui/login/img/logos/SF_Logo_Lg-BlueYellow_cd603e40372dc61e1a3203336e03f73d.png">
+    <input type="password" id="secret-code" placeholder="Enter Company Id" />
+    <button id="submit-code">Submit</button>
+  </div>
+
+  <div id="name-container" style="display:none;">
+    <h2>Enter Your Name</h2>
+    <input type="text" id="name" placeholder="Enter your name" />
+    <button id="submit-name">Submit Name</button>
+  </div>
+
+  <div id="chat" style="display:none;">
+    <div id="messages"></div>
+    <div class="input-area">
+      <input type="text" id="message" placeholder="Type a message 😊" autocomplete="off">
+      <button id="send-btn" title="Send">&#10148;</button>
+      <button id="clear-btn" title="Clear">&#128465;</button>
+      <button id="back-btn" title="Clear">Back</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+
+</body>
+</html>

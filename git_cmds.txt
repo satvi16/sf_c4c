@@ -1,0 +1,4 @@
+git status - Will show the changes
+git add . / index.html - To update it to github
+git commit -m "Removed auth" - Comment for commit.
+git push origin master - Final push

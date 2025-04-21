@@ -1,19 +1,24 @@
 {
-  "name": "sf_c4c",
+  "name": "quick-chat-app",
   "version": "1.0.0",
-  "description": "Chat Application - SF_C4C",
-  "main": "server/app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server/app.js",
-    "dev": "nodemon server/app.js"
+    "start": "node index.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.10.9",
-    "dotenv": "^8.2.0",
-    "socket.io": "^4.0.1"
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satvikbhupalam16/quick-chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/satvikbhupalam16/quick-chat/issues"
+  },
+  "homepage": "https://github.com/satvikbhupalam16/quick-chat#readme",
+  "description": ""
 }

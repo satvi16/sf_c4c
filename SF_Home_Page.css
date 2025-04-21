@@ -1,0 +1,136 @@
+/* General Page Styling */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  zoom: 130%;
+
+}
+
+/* Container for login box */
+.login-container {
+  width: 400px;
+  padding: 40px 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  background-color: white;
+}
+
+/* Company logo */
+.logo {
+  max-width: 240px;
+  margin-bottom: 20px;
+}
+
+/* Instructional text */
+.login-text {
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.login-text a {
+  color: #0047bb;
+  text-decoration: underline;
+}
+
+/* Login form layout */
+.form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Labels for input fields */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Wrapping input + icon */
+.input-wrapper {
+  position: relative;
+}
+
+/* Text and password input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 35px 10px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Right-side icons (help, eye, etc.) */
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Help icon style (User Name) */
+.help-icon {
+  color: #000000;
+}
+
+/* Eye icon style (Password) */
+.toggle-icon {
+  color: #444;
+}
+
+/* Forgot password link */
+.forgot-link {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot-link a {
+  font-size: 13px;
+  color: #0047bb;
+  text-decoration: underline;
+}
+
+/* Login button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0070d2;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #005bb5;
+}
+
+/* Footer text */
+footer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #777;
+  text-align: center;
+}
+
+footer a {
+  color: #0047bb;
+  text-decoration: underline;
+}
