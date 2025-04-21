@@ -61,7 +61,7 @@ function addMessageToDOM(data) {
     ${timeDisplay}
   `;
 
-  document.getElementById('messages').appendChild(message);
+  document.getElementById('messages').prepend(message);
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
 
