@@ -213,6 +213,36 @@ button:hover {
     border-radius: 10px 10px 0px 0px;
     box-shadow: -1px -10px 5px rgb(16 12 12 / 10%);
 }
+
+.chat-top-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.chat-top-controls button {
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+  background-color: #0070d2;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.chat-top-controls button:hover {
+  background-color: #128c7e;
+}
+
+
 #message {
   flex: 1;
   padding: 10px 14px;
