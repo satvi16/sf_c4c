@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quick Call</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #0070d2;
+    }
+
+    #videos {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    video {
+      width: 320px;
+      height: 240px;
+      border: 3px solid #0070d2;
+      border-radius: 12px;
+      background: #000;
+    }
+
+    button {
+      margin: 5px;
+      padding: 12px 20px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button#start {
+      background-color: #0070d2;
+      color: white;
+    }
+
+    button#end {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    button#mute,
+    button#video,
+    button#record,
+    button#stop-record {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    #call-status {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔊 Quick Call</h1>
+
+  <div>
+    <button id="start" onclick="startCall()">Start Call</button>
+    <button id="end" onclick="endCall()">End Call</button>
+    <button id="mute" onclick="toggleMute()">Mute</button>
+    <button id="video" onclick="toggleVideo()">Toggle Video</button>
+    <button id="record" onclick="startRecording()">Start Recording</button>
+    <button id="stop-record" onclick="stopRecording()">Stop Recording</button>
+  </div>
+
+  <div id="call-status">Idle</div>
+
+  <div id="videos">
+    <video id="localVideo" autoplay muted playsinline></video>
+    <video id="remoteVideo" autoplay playsinline></video>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="call.js"></script>
+</body>
+</html>

@@ -21,6 +21,12 @@ app.get('/chat', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+
+app.get('/call', (req, res) => {
+  res.sendFile(path.join(__dirname, 'call.html'));
+});
+
+
 // 🔁 In-memory chat history
 const chatHistory = [];
 
@@ -52,7 +58,17 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
+
+  socket.on('webrtc-offer', (data) => {
+  socket.broadcast.emit('webrtc-offer', data);
 });
+
+socket.on('webrtc-answer', (data) => {
+  socket.broadcast.emit('webrtc-answer', data);
+});
+
+});
+
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
