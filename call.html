@@ -1,97 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Call</title>
+  <title>Video Call</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      background: #181818;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #video-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      background-color: #111;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+    video {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .call-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .call-controls button {
+      background-color: #0a84ff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .call-controls button:hover {
+      background-color: #006fd6;
+      transform: scale(1.1);
+    }
+    .call-controls button:active {
+      transform: scale(0.95);
+    }
+
+    /* Additional styling for call end button */
+    .call-controls button.end-call {
+      background-color: #ff3b30;
+    }
+    .call-controls button.end-call:hover {
+      background-color: #d62c1a;
+    }
+
+    /* Styles for audio/video toggle buttons */
+    .call-controls button.mute {
+      background-color: #28a745;
+    }
+    .call-controls button.mute:hover {
+      background-color: #218838;
+    }
+
+    .call-controls button.video {
+      background-color: #ffc107;
+    }
+    .call-controls button.video:hover {
+      background-color: #e0a800;
+    }
+
+  </style>
 </head>
 <body>
   <div id="video-container">
     <video id="localVideo" autoplay muted></video>
     <video id="remoteVideo" autoplay></video>
+      
+    <div class="call-controls">
+      <button class="mute" title="Mute/Unmute"><i class="fa fa-microphone"></i></button>
+      <button class="video" title="Toggle Video"><i class="fa fa-video-camera"></i></button>
+      <button class="refresh" title="Switch Camera"><i class="fa fa-refresh"></i></button>
+      <button class="end-call" title="End Call"><i class="fa fa-phone-slash"></i></button>
+    </div>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
-
-    const localVideo = document.getElementById('localVideo');
-    const remoteVideo = document.getElementById('remoteVideo');
-
-    let localStream;
-    let peerConnection;
-
-    const config = {
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-    };
-
-    async function startCall() {
-      localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-      localVideo.srcObject = localStream;
-
-      peerConnection = new RTCPeerConnection(config);
-
-      localStream.getTracks().forEach(track => {
-        peerConnection.addTrack(track, localStream);
-      });
-
-      peerConnection.ontrack = event => {
-        remoteVideo.srcObject = event.streams[0];
-      };
-
-      peerConnection.onicecandidate = event => {
-        if (event.candidate) {
-          socket.emit('webrtc-candidate', event.candidate);
-        }
-      };
-
-      const offer = await peerConnection.createOffer();
-      await peerConnection.setLocalDescription(offer);
-      socket.emit('webrtc-offer', offer);
-    }
-
-    // Incoming offer
-    socket.on('webrtc-offer', async offer => {
-      localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-      localVideo.srcObject = localStream;
-
-      peerConnection = new RTCPeerConnection(config);
-
-      localStream.getTracks().forEach(track => {
-        peerConnection.addTrack(track, localStream);
-      });
-
-      peerConnection.ontrack = event => {
-        remoteVideo.srcObject = event.streams[0];
-      };
-
-      peerConnection.onicecandidate = event => {
-        if (event.candidate) {
-          socket.emit('webrtc-candidate', event.candidate);
-        }
-      };
-
-      await peerConnection.setRemoteDescription(offer);
-      const answer = await peerConnection.createAnswer();
-      await peerConnection.setLocalDescription(answer);
-      socket.emit('webrtc-answer', answer);
-    });
-
-    // Incoming answer
-    socket.on('webrtc-answer', async answer => {
-      await peerConnection.setRemoteDescription(answer);
-    });
-
-    // ICE candidate exchange
-    socket.on('webrtc-candidate', async candidate => {
-      try {
-        await peerConnection.addIceCandidate(candidate);
-      } catch (e) {
-        console.error('Error adding received ICE candidate', e);
-      }
-    });
-
-    startCall();
-  </script>
+  <script src="call.js"></script>
 </body>
 </html>

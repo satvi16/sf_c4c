@@ -27,6 +27,34 @@ async function startCall() {
   callSocket.emit('webrtc-offer', { offer });
 }
 
+async function switchCamera() {
+  const currentVideoTrack = localStream.getVideoTracks()[0];
+  const currentDeviceId = currentVideoTrack.getSettings().deviceId;
+
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  const videoDevices = devices.filter(d => d.kind === 'videoinput');
+
+  const currentIndex = videoDevices.findIndex(d => d.deviceId === currentDeviceId);
+  const nextIndex = (currentIndex + 1) % videoDevices.length;
+  const nextDeviceId = videoDevices[nextIndex].deviceId;
+
+  const newStream = await navigator.mediaDevices.getUserMedia({
+    video: { deviceId: { exact: nextDeviceId } },
+    audio: true
+  });
+
+  // Replace video track in peer connection
+  const newVideoTrack = newStream.getVideoTracks()[0];
+  const sender = peerConnection.getSenders().find(s => s.track.kind === 'video');
+  if (sender) sender.replaceTrack(newVideoTrack);
+
+  // Update local stream and video element
+  localStream.getTracks().forEach(t => t.stop());
+  localStream = newStream;
+  localVideo.srcObject = localStream;
+}
+
+
 // === Accept/Reject Offer ===
 callSocket.on('webrtc-offer', async ({ offer }) => {
   const accept = confirm("📞 Incoming call — accept?");

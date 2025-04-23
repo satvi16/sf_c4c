@@ -28,10 +28,13 @@
   <div id="chat" class="chat-container" style="display: none;">
     <div class="chat-header">
     <div class="header-left">
-      <div id="user-status-container">
-        <span id="status-dot" class="offline"></span>
-        <span id="status-label">Offline</span>
-      </div>
+      <div class="user-info">
+          <div class="user-name" id="display-name">Username</div>
+          <div class="user-status">
+              <span id="status-dot" class="offline"></span>
+              <span id="status-label">Offline</span>
+          </div>
+        </div>
     </div>
     <div class="chat-controls">
       <button id="goto-call" title="Call" onclick="/call"><i class="fa fa-phone"></i></button>
