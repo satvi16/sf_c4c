@@ -60,6 +60,10 @@ document.getElementById('goto-call').addEventListener('click', () => {
   window.location.href = '/call';
 });
 
+// === Close Call Modal ===
+document.getElementById('close-call').addEventListener('click', () => {
+  document.getElementById('call-modal').style.display = 'none';
+});
 
 // === Add Message to DOM ===
 function addMessageToDOM(data) {
