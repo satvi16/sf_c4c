@@ -3,6 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
 const connectedUsers = {}; // Store socket.id → username
+const users = {};  // username -> [socketIds]
 
 const app = express();
 const server = http.createServer(app);
@@ -37,16 +38,18 @@ io.on('connection', (socket) => {
   // Send chat history to new user
   socket.emit('chat history', chatHistory);
   
-  socket.on('set name', (data) => {
-    const name = data.name;
-    socket.username = name;
-    connectedUsers[socket.id] = name;
-  
-    // Emit to others that this user is online
-    socket.broadcast.emit('userStatus', { user: name, status: 'online' });
-  
-    socket.emit('name set', { name });
-  });
+socket.on('set name', (data) => {
+  socket.username = data.name;
+  if (!users[data.name]) {
+    users[data.name] = [];
+  }
+  users[data.name].push(socket.id);
+
+  // Notify others that user is online
+  socket.broadcast.emit('userStatus', { user: data.name, status: 'online' });
+
+  socket.emit('name set', { name: data.name });
+});
   
 
   socket.on('chat message', (data) => {
@@ -63,14 +66,20 @@ io.on('connection', (socket) => {
     io.emit('update status', data);
   });
 
-  socket.on('disconnect', () => {
-    const name = socket.username;
-    if (name) {
-      delete connectedUsers[socket.id];
+socket.on('disconnect', () => {
+  const name = socket.username;
+  if (!name) return;
+
+  if (users[name]) {
+    users[name] = users[name].filter(id => id !== socket.id);
+    if (users[name].length === 0) {
+      delete users[name];
       socket.broadcast.emit('userStatus', { user: name, status: 'offline' });
     }
-    console.log(`${name || 'A user'} disconnected`);
-  });
+  }
+
+  console.log(`${name || 'A user'} disconnected`);
+});
 
 
   socket.on('webrtc-offer', (data) => {
@@ -79,6 +88,10 @@ io.on('connection', (socket) => {
 
 socket.on('webrtc-answer', (data) => {
   socket.broadcast.emit('webrtc-answer', data);
+});
+
+socket.on('webrtc-candidate', (candidate) => {
+  socket.broadcast.emit('webrtc-candidate', candidate);
 });
 
 });

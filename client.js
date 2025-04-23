@@ -55,6 +55,12 @@ document.getElementById('back-btn').addEventListener('click', () => {
   window.location.href = 'https://sf-c4c.onrender.com/';
 });
 
+// === Go to Call Page ===
+document.getElementById('goto-call').addEventListener('click', () => {
+  window.location.href = '/call';
+});
+
+
 // === Add Message to DOM ===
 function addMessageToDOM(data) {
   const isUser = data.sender === userName;
