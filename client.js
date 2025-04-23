@@ -31,6 +31,17 @@ document.getElementById('send-btn').addEventListener('click', () => {
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     socket.emit('chat message', { sender: userName, msg, time });
     msgInput.value = '';
+    socket.emit('stopTyping', userName);
+  }
+});
+
+// === Typing Event ===
+const msgInput = document.getElementById('message');
+msgInput.addEventListener('input', () => {
+  if (msgInput.value.trim()) {
+    socket.emit('typing', userName);
+  } else {
+    socket.emit('stopTyping', userName);
   }
 });
 
@@ -41,7 +52,7 @@ document.getElementById('clear-btn').addEventListener('click', () => {
 
 // === Back to Home ===
 document.getElementById('back-btn').addEventListener('click', () => {
-  window.location.href = 'https://sf-c4c.onrender.com/';
+  window.location.href = 'https://quick-chat-fumk.onrender.com/';
 });
 
 // === Add Message to DOM ===
@@ -50,10 +61,7 @@ function addMessageToDOM(data) {
   const message = document.createElement('div');
   message.classList.add('message', isUser ? 'user' : 'friend');
 
-  const timeDisplay = `
-    <div class="timestamp">
-      ${data.time}
-    </div>`;
+  const timeDisplay = `<div class="timestamp">${data.time}</div>`;
 
   message.innerHTML = `
     ${!isUser ? `<strong>${data.sender}:</strong>` : ''}
@@ -65,12 +73,34 @@ function addMessageToDOM(data) {
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
 
-// === Receive Message History ===
+// === Typing Indicator ===
+socket.on('typing', (user) => {
+  if (user !== userName) {
+    document.getElementById('typing-indicator').textContent = `${user} is typing...`;
+    document.getElementById('typing-indicator').style.display = 'block';
+  }
+});
+
+socket.on('stopTyping', (user) => {
+  if (user !== userName) {
+    document.getElementById('typing-indicator').style.display = 'none';
+  }
+});
+
+// === Online Status Indicator ===
+socket.on('userStatus', ({ user, status }) => {
+  if (user !== userName) {
+    const statusDot = document.getElementById('status-dot');
+    statusDot.className = status;
+  }
+});
+
+// === Message History ===
 socket.on('chat history', (messages) => {
   messages.forEach(data => addMessageToDOM(data));
 });
 
-// === Receive Live Messages ===
+// === Live Messages ===
 socket.on('chat message', (data) => {
   addMessageToDOM(data);
 });
