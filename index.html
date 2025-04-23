@@ -27,18 +27,20 @@
   <!-- Chat Interface -->
   <div id="chat" class="chat-container">
     <div class="chat-header">
-      <h3>QuickChat</h3>
-      <div class="chat-controls">
-        <div id="user-status-container">
-          <span id="status-dot" class="offline"></span>
-          <span id="status-label">Offline</span>
-        </div>
-
-        <button id="goto-call" title="Call"><i class="fa fa-phone"></i></button>
-        <button id="clear-btn" title="Clear"><i class="fa fa-trash-o"></i></button>
-        <button id="back-btn" title="Back"><i class="fa fa-chevron-left"></i></button>
-      </div>
+  <div class="header-left">
+    <h3>QuickChat</h3>
+    <div id="user-status-container">
+      <span id="status-dot" class="offline"></span>
+      <span id="status-label">Offline</span>
     </div>
+  </div>
+  <div class="chat-controls">
+    <button id="goto-call" title="Call"><i class="fa fa-phone"></i></button>
+    <button id="clear-btn" title="Clear"><i class="fa fa-trash-o"></i></button>
+    <button id="back-btn" title="Back"><i class="fa fa-chevron-left"></i></button>
+  </div>
+</div>
+
 
     <div id="typing-indicator" class="typing-indicator"></div>
     <div id="messages" class="messages-area"></div>

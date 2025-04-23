@@ -139,12 +139,33 @@ button:hover {
   width: 50px;
 }
 
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#user-status-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
 #status-dot {
   height: 10px;
   width: 10px;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 6px;
 }
 
 #status-dot.online {
@@ -153,5 +174,24 @@ button:hover {
 
 #status-dot.offline {
   background-color: red;
+}
+
+.chat-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-controls button {
+  background-color: #0070d2;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.chat-controls button:hover {
+  opacity: 0.85;
 }
 
