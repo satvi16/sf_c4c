@@ -8,7 +8,7 @@ document.getElementById('submit-code').addEventListener('click', () => {
     document.getElementById('auth-container').style.display = 'none';
     document.getElementById('name-container').style.display = 'block';
   } else {
-    alert("Incorrect secret code. Try again.");
+    alert("Incorrect Company code. Try again.");
   }
 });
 
@@ -90,10 +90,19 @@ socket.on('stopTyping', (user) => {
 // === Online Status Indicator ===
 socket.on('userStatus', ({ user, status }) => {
   if (user !== userName) {
-    const statusDot = document.getElementById('status-dot');
-    statusDot.className = status;
+    const dot = document.getElementById('status-dot');
+    const label = document.getElementById('status-label');
+
+    if (status === 'online') {
+      dot.className = 'online';
+      label.textContent = 'Online';
+    } else {
+      dot.className = 'offline';
+      label.textContent = 'Offline';
+    }
   }
 });
+
 
 // === Message History ===
 socket.on('chat history', (messages) => {

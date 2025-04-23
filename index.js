@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const connectedUsers = {}; // Store socket.id → username
 
 const app = express();
 const server = http.createServer(app);
@@ -35,11 +36,18 @@ io.on('connection', (socket) => {
 
   // Send chat history to new user
   socket.emit('chat history', chatHistory);
-
+  
   socket.on('set name', (data) => {
-    socket.username = data.name;
-    socket.emit('name set', { name: data.name });
+    const name = data.name;
+    socket.username = name;
+    connectedUsers[socket.id] = name;
+  
+    // Emit to others that this user is online
+    socket.broadcast.emit('userStatus', { user: name, status: 'online' });
+  
+    socket.emit('name set', { name });
   });
+  
 
   socket.on('chat message', (data) => {
     data.status = 'sent';
@@ -56,8 +64,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
+    const name = socket.username;
+    if (name) {
+      delete connectedUsers[socket.id];
+      socket.broadcast.emit('userStatus', { user: name, status: 'offline' });
+    }
+    console.log(`${name || 'A user'} disconnected`);
   });
+
 
   socket.on('webrtc-offer', (data) => {
   socket.broadcast.emit('webrtc-offer', data);

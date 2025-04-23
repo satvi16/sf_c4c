@@ -138,3 +138,20 @@ button:hover {
 .input-area button {
   width: 50px;
 }
+
+#status-dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+#status-dot.online {
+  background-color: green;
+}
+
+#status-dot.offline {
+  background-color: red;
+}
+
